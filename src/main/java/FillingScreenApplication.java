@@ -5,11 +5,12 @@ public class FillingScreenApplication {
         FillingScreenApplication fillingScreenApplication = new FillingScreenApplication();
         Scanner in = new Scanner(System.in);
 
-        Enum [][] screen = new Enum[][]{
-                { Colors.BLACK, Colors.RED, Colors.RED, Colors.RED, Colors.BLACK, Colors.BLUE},
-                { Colors.BLACK, Colors.RED, Colors.RED, Colors.BLACK, Colors.GREEN, Colors.RED },
-                { Colors.WHITE, Colors.BLACK, Colors.YELLOW, Colors.RED, Colors.WHITE, Colors.BLACK}
-        };
+        System.out.println("Size in Y:");
+        int i = in.nextInt();
+        System.out.println("Size in X:");
+        int j = in.nextInt();
+
+        Enum [][] screen = fillingScreenApplication.builderArray(i,j);
         System.out.println("Array built");
         fillingScreenApplication.printArray(screen);
 
@@ -53,7 +54,7 @@ public class FillingScreenApplication {
         Enum [][] screen = new Enum[i][j];
         for(int x = 0; x < i; x++){
             for(int y = 0; y < j; y++){
-                screen[x][y] = Colors.valueOf((int)(Math.random() * 5) + 1).orElse(Colors.BLACK);
+                screen[x][y] = Colors.valueOf((int)(Math.random() * 8) + 1).orElse(Colors.BLACK);
             }
         }
         return screen;
