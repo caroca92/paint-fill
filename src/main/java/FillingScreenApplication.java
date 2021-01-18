@@ -12,8 +12,7 @@ public class FillingScreenApplication {
 
         Enum [][] screen = fillingScreenApplication.builderArray(i,j);
         System.out.println("Array built");
-
-        printArray(screen);
+        fillingScreenApplication.printArray(screen);
 
         System.out.println("Point in Y axis:");
         int pointI = in.nextInt();
