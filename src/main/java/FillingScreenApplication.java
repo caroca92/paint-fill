@@ -25,20 +25,16 @@ public class FillingScreenApplication {
         System.out.println(Colors.valueOf(newColor).orElse(Colors.BLACK));
 
         FunctionChangeColor changeColorDefinition = (pointIValue, pointJValue, screenValue, colorValue, func) -> {
-            Enum[][] array = (Enum[][]) screenValue;
-            Enum color = (Enum) colorValue;
             FunctionChangeColor functionChangeColor = (FunctionChangeColor) func;
-            Integer iValue = (Integer) pointIValue;
-            Integer jValue = (Integer) pointJValue;
-            if(iValue < array.length && iValue >= 0 && jValue < array[iValue].length && jValue >= 0 && array[iValue][jValue] != color){
-                array[iValue][jValue] = color;
+            if(pointIValue < screenValue.length && pointIValue >= 0 && pointJValue < screenValue[pointIValue].length && pointJValue >= 0 && screenValue[pointIValue][pointJValue] != colorValue){
+                screenValue[pointIValue][pointJValue] = colorValue;
 
-                printArray(array);
+                printArray(screenValue);
 
-                functionChangeColor.changeColor(iValue -1, jValue, array, color, functionChangeColor);
-                functionChangeColor.changeColor(iValue, jValue - 1, array, color, functionChangeColor);
-                functionChangeColor.changeColor(iValue + 1, jValue, array, color, functionChangeColor);
-                functionChangeColor.changeColor( iValue, jValue + 1, array, color, functionChangeColor);
+                functionChangeColor.changeColor(pointIValue -1, pointJValue, screenValue, colorValue, functionChangeColor);
+                functionChangeColor.changeColor(pointIValue, pointJValue - 1, screenValue, colorValue, functionChangeColor);
+                functionChangeColor.changeColor(pointIValue + 1, pointJValue, screenValue, colorValue, functionChangeColor);
+                functionChangeColor.changeColor( pointIValue, pointJValue + 1, screenValue, colorValue, functionChangeColor);
             }
         };
 
