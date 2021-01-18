@@ -1,4 +1,4 @@
 @FunctionalInterface
-public interface FunctionChangeColor<T, U, V, W, X> {
-    public void changeColor(T t, U u, V v, W w, X x);
+public interface FunctionChangeColor {
+    public void changeColor(Integer t, Integer u, Enum[][] array, Enum color, FunctionChangeColor x);
 }
