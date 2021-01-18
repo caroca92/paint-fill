@@ -23,38 +23,42 @@ public class FillingScreenApplication {
         System.out.println("Color chosen:");
         System.out.println(Colors.valueOf(newColor).orElse(Colors.BLACK));
 
-        fillingScreenApplication.changeColor(pointI, pointJ, screen, Colors.valueOf(newColor).orElse(Colors.BLACK));
+        FunctionChangeColor changeColorDefinition = (pointIValue, pointJValue, screenValue, colorValue, func) -> {
+            Enum[][] array = (Enum[][]) screenValue;
+            Enum color = (Enum) colorValue;
+            FunctionChangeColor functionChangeColor = (FunctionChangeColor) func;
+            Integer iValue = (Integer) pointIValue;
+            Integer jValue = (Integer) pointJValue;
+            if(iValue < array.length && iValue >= 0 && jValue < array[iValue].length && jValue >= 0 && array[iValue][jValue] != color){
+                array[iValue][jValue] = color;
 
+                printArray(array);
 
-    }
-    public void changeColor(int i, int j, Enum[][] array, Enum color){
-        if(i < array.length && i >= 0 && j < array[i].length && j >= 0 && array[i][j] != color){
-            array[i][j] = color;
-
-            printArray(array);
-
-            changeColor(i -1, j, array, color);
-            changeColor(i, j - 1, array, color);
-            changeColor(i + 1, j, array, color);
-            changeColor(i, j + 1, array, color);
-
-        }
-
-    }
-    public void printArray(Enum [][] screen){
-        System.out.println("Result:");
-        for (Enum[] enums : screen) {
-            for (Enum anEnum : enums) {
-                System.out.print(anEnum + " \t");
+                functionChangeColor.changeColor(iValue -1, jValue, array, color, functionChangeColor);
+                functionChangeColor.changeColor(iValue, jValue - 1, array, color, functionChangeColor);
+                functionChangeColor.changeColor(iValue + 1, jValue, array, color, functionChangeColor);
+                functionChangeColor.changeColor( iValue, jValue + 1, array, color, functionChangeColor);
             }
-            System.out.println();
-        }
+        };
+
+        changeColorDefinition.changeColor( pointI, pointJ, screen, Colors.valueOf(newColor).orElse(Colors.BLACK), changeColorDefinition);
+
+    }
+
+    public static void printArray(Enum [][] screen){
+        System.out.println("Result:");
+        Arrays.stream(screen)
+                .forEach((simpleArray) -> {
+                    Arrays.stream(simpleArray)
+                        .forEach(anEnum -> System.out.print(anEnum + " \t"));
+                    System.out.println();
+                });
     }
     public Enum [][] builderArray(int i, int j){
         Enum [][] screen = new Enum[i][j];
         for(int x = 0; x < i; x++){
             for(int y = 0; y < j; y++){
-                screen[x][y] = Colors.valueOf((int)(Math.random() * 8) + 1).orElse(Colors.BLACK);
+                screen[x][y] = Colors.valueOf((int)(Math.random() * 9) + 1).orElse(Colors.BLACK);
             }
         }
         return screen;
